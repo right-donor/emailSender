@@ -55,3 +55,4 @@ build-iPhoneSimulator/
 # package directories
 node_modules
 serverless.yml
+ruby
