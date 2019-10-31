@@ -1,5 +1,6 @@
 *.gem
 *.rbc
+*.gemspec
 /.config
 /coverage/
 /InstalledFiles
@@ -9,6 +10,7 @@
 /test/tmp/
 /test/version_tmp/
 /tmp/
+ruby/2.5.0/*
 
 # Used by dotenv library to load environment variables.
 # .env
@@ -51,6 +53,7 @@ build-iPhoneSimulator/
 
 # Serverless directories
 .serverless
+
 
 # package directories
 node_modules
