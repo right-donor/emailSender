@@ -17,7 +17,7 @@ require 'mailgun-ruby'
 # +event:: POST Event Object
 # +context:: Execution context
 def hello(event:, context:)
-  if event["to"] == "" || event["subject"] == "" || event["text"] == "" || event["first"] == "" || event["second"] == ""
+  if event["to"] == "" || event["from"] == "" || event["subject"] == "" || event["body"] == "" || event["first"] == "" || event["second"] == ""
     {
       statusCode: 200,
       body: {
@@ -25,17 +25,18 @@ def hello(event:, context:)
         input: event
     }.to_json}
   else
-    send_email(event["to"],event["first"],event["second"],event["subject"],event["text"])
+    send_email(event["to"],event["from"],event["first"],event["second"],event["subject"],event["body"])
   end
 end
 
 # Sends an email to the desired recipient
 # Params:
 # +to:: Email of the recipient
+# +from:: name of the sender
 # +first_name: First Name of the recipient
 # +second_name: Second Name of the recipient
 # +subject:: Subject of the email to send
-# +text:: Email text
+# +body:: Email HTML Body
 def send_email(to, from, first_name, second_name, subject, body)
   mg_client = Mailgun::Client.new ENV["API_KEY"]
   mb_obj = Mailgun::MessageBuilder.new
