@@ -36,12 +36,12 @@ end
 # +second_name: Second Name of the recipient
 # +subject:: Subject of the email to send
 # +text:: Email text
-def send_email(to, first_name, second_name, subject, text)
+def send_email(to, from, first_name, second_name, subject, body)
   mg_client = Mailgun::Client.new ENV["API_KEY"]
   mb_obj = Mailgun::MessageBuilder.new
-  mb_obj.set_from_address("bob@"+ENV["DOMAIN"],{"first" => "Right", "last" => "Donor"})
+  mb_obj.set_from_address(from+"@"+ENV["DOMAIN"],{"first" => from, "last" => "@Right Donor"})
   mb_obj.add_recipient(:to,to,{"first" => first_name, "last" => second_name})
   mb_obj.set_subject(subject)
-  mb_obj.set_html_body("<html><body><h1> Hello from Right Donor </h1> <p>"+text+"</p></body></html>")
+  mb_obj.set_html_body(body)
   return mg_client.send_message(ENV["DOMAIN"],mb_obj)
 end
